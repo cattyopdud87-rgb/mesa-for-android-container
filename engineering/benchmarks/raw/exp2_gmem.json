@@ -1,0 +1,162 @@
+{
+  "suite_name": "exp2_gmem",
+  "env_vars": "FD_MESA_DEBUG=gmem",
+  "repetitions": 2,
+  "timestamp": "2026-11-09 17:39:45",
+  "glmark2_runs": [
+    {
+      "repetition": 1,
+      "parsed": {
+        "scenes": {
+          "terrain": {
+            "fps": 77.0,
+            "frametime_ms": 13.098
+          },
+          "shading": {
+            "fps": 476.0,
+            "frametime_ms": 2.103
+          },
+          "build": {
+            "fps": 810.0,
+            "frametime_ms": 1.236
+          },
+          "bump": {
+            "fps": 866.0,
+            "frametime_ms": 1.155
+          }
+        },
+        "score": 556
+      },
+      "telemetry": {
+        "duration_s": 10.98,
+        "avg_power_w": 3.549,
+        "max_power_w": 5.507,
+        "energy_joules": 38.97,
+        "start_temp_c": 37.1,
+        "end_temp_c": 37.2,
+        "max_temp_c": 37.2,
+        "temp_delta_c": 0.1,
+        "avg_gpu_freq_mhz": 272.3,
+        "max_gpu_freq_mhz": 565.0,
+        "avg_gpu_busy_pct": 43.0
+      },
+      "raw_output": "=======================================================\n    glmark2 2023.01\n=======================================================\n    OpenGL Information\n    GL_VENDOR:      freedreno\n    GL_RENDERER:    FD618\n    GL_VERSION:     4.6 (Compatibility Profile) Mesa 26.3.0-arch1.1 (git-98f3d6229d)\n    Surface Config: buf=32 r=8 g=8 b=8 a=8 depth=32 stencil=0 samples=0\n    Surface Size:   800x600 windowed\n=======================================================\n[terrain] duration=2.0: FPS: 77 FrameTime: 13.098 ms\n[shading] duration=2.0: FPS: 476 FrameTime: 2.103 ms\n[build] duration=2.0: FPS: 810 FrameTime: 1.236 ms\n[bump] duration=2.0: FPS: 866 FrameTime: 1.155 ms\n=======================================================\n                                  glmark2 Score: 556 \n=======================================================\n"
+    },
+    {
+      "repetition": 2,
+      "parsed": {
+        "scenes": {
+          "terrain": {
+            "fps": 69.0,
+            "frametime_ms": 14.501
+          },
+          "shading": {
+            "fps": 495.0,
+            "frametime_ms": 2.021
+          },
+          "build": {
+            "fps": 808.0,
+            "frametime_ms": 1.239
+          },
+          "bump": {
+            "fps": 824.0,
+            "frametime_ms": 1.214
+          }
+        },
+        "score": 548
+      },
+      "telemetry": {
+        "duration_s": 10.13,
+        "avg_power_w": 2.692,
+        "max_power_w": 5.43,
+        "energy_joules": 27.28,
+        "start_temp_c": 37.1,
+        "end_temp_c": 37.1,
+        "max_temp_c": 37.3,
+        "temp_delta_c": 0.0,
+        "avg_gpu_freq_mhz": 219.0,
+        "max_gpu_freq_mhz": 430.0,
+        "avg_gpu_busy_pct": 48.6
+      },
+      "raw_output": "=======================================================\n    glmark2 2023.01\n=======================================================\n    OpenGL Information\n    GL_VENDOR:      freedreno\n    GL_RENDERER:    FD618\n    GL_VERSION:     4.6 (Compatibility Profile) Mesa 26.3.0-arch1.1 (git-98f3d6229d)\n    Surface Config: buf=32 r=8 g=8 b=8 a=8 depth=32 stencil=0 samples=0\n    Surface Size:   800x600 windowed\n=======================================================\n[terrain] duration=2.0: FPS: 69 FrameTime: 14.501 ms\n[shading] duration=2.0: FPS: 495 FrameTime: 2.021 ms\n[build] duration=2.0: FPS: 808 FrameTime: 1.239 ms\n[bump] duration=2.0: FPS: 824 FrameTime: 1.214 ms\n=======================================================\n                                  glmark2 Score: 548 \n=======================================================\n"
+    }
+  ],
+  "vkmark_runs": [
+    {
+      "repetition": 1,
+      "parsed": {
+        "scenes": {
+          "vertex": {
+            "fps": 1549.0,
+            "frametime_ms": 0.646
+          },
+          "texture": {
+            "fps": 1339.0,
+            "frametime_ms": 0.747
+          },
+          "shading": {
+            "fps": 1237.0,
+            "frametime_ms": 0.808
+          },
+          "desktop": {
+            "fps": 2546.0,
+            "frametime_ms": 0.393
+          }
+        },
+        "score": 1667
+      },
+      "telemetry": {
+        "duration_s": 8.87,
+        "avg_power_w": 2.791,
+        "max_power_w": 4.349,
+        "energy_joules": 24.76,
+        "start_temp_c": 37.0,
+        "end_temp_c": 37.1,
+        "max_temp_c": 37.2,
+        "temp_delta_c": 0.1,
+        "avg_gpu_freq_mhz": 728.2,
+        "max_gpu_freq_mhz": 800.0,
+        "avg_gpu_busy_pct": 79.1
+      },
+      "raw_output": "=======================================================\n    vkmark 2025.01\n=======================================================\n    Vendor ID:      0x5143\n    Device ID:      0x6010800\n    Device Name:    Turnip Adreno (TM) 618\n    Driver Version: 109064192\n    Device UUID:    53b382ac9427ee64cac3975091869f15\n=======================================================\n[vertex] duration=2.0: FPS: 1549 FrameTime: 0.646 ms\n[texture] duration=2.0: FPS: 1339 FrameTime: 0.747 ms\n[shading] duration=2.0: FPS: 1237 FrameTime: 0.808 ms\n[desktop] duration=2.0: FPS: 2546 FrameTime: 0.393 ms\n=======================================================\n                                   vkmark Score: 1667\n=======================================================\n"
+    },
+    {
+      "repetition": 2,
+      "parsed": {
+        "scenes": {
+          "vertex": {
+            "fps": 1644.0,
+            "frametime_ms": 0.608
+          },
+          "texture": {
+            "fps": 1335.0,
+            "frametime_ms": 0.749
+          },
+          "shading": {
+            "fps": 1257.0,
+            "frametime_ms": 0.796
+          },
+          "desktop": {
+            "fps": 2350.0,
+            "frametime_ms": 0.426
+          }
+        },
+        "score": 1646
+      },
+      "telemetry": {
+        "duration_s": 8.65,
+        "avg_power_w": 2.929,
+        "max_power_w": 5.521,
+        "energy_joules": 25.34,
+        "start_temp_c": 37.1,
+        "end_temp_c": 37.2,
+        "max_temp_c": 37.2,
+        "temp_delta_c": 0.1,
+        "avg_gpu_freq_mhz": 756.7,
+        "max_gpu_freq_mhz": 800.0,
+        "avg_gpu_busy_pct": 87.9
+      },
+      "raw_output": "=======================================================\n    vkmark 2025.01\n=======================================================\n    Vendor ID:      0x5143\n    Device ID:      0x6010800\n    Device Name:    Turnip Adreno (TM) 618\n    Driver Version: 109064192\n    Device UUID:    53b382ac9427ee64cac3975091869f15\n=======================================================\n[vertex] duration=2.0: FPS: 1644 FrameTime: 0.608 ms\n[texture] duration=2.0: FPS: 1335 FrameTime: 0.749 ms\n[shading] duration=2.0: FPS: 1257 FrameTime: 0.796 ms\n[desktop] duration=2.0: FPS: 2350 FrameTime: 0.426 ms\n=======================================================\n                                   vkmark Score: 1646\n=======================================================\n"
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "suite_name": "exp2_sysmem",
+  "env_vars": "FD_MESA_DEBUG=sysmem",
+  "repetitions": 2,
+  "timestamp": "2026-11-10 19:51:23",
+  "glmark2_runs": [
+    {
+      "repetition": 1,
+      "parsed": {
+        "scenes": {},
+        "score": null
+      },
+      "telemetry": {
+        "duration_s": 3242.45,
+        "avg_power_w": -1.273,
+        "max_power_w": 6.669,
+        "energy_joules": -4128.92,
+        "start_temp_c": 31.8,
+        "end_temp_c": 30.8,
+        "max_temp_c": 33.9,
+        "temp_delta_c": -1.0,
+        "avg_gpu_freq_mhz": 204.6,
+        "max_gpu_freq_mhz": 800.0,
+        "avg_gpu_busy_pct": 7.7
+      },
+      "raw_output": ""
+    },
+    {
+      "repetition": 2,
+      "parsed": {
+        "scenes": {},
+        "score": null
+      },
+      "telemetry": {
+        "duration_s": 2335.87,
+        "avg_power_w": 1.906,
+        "max_power_w": 7.46,
+        "energy_joules": 4452.37,
+        "start_temp_c": 30.8,
+        "end_temp_c": 32.8,
+        "max_temp_c": 36.1,
+        "temp_delta_c": 2.0,
+        "avg_gpu_freq_mhz": 187.6,
+        "max_gpu_freq_mhz": 565.0,
+        "avg_gpu_busy_pct": 4.7
+      },
+      "raw_output": ""
+    }
+  ],
+  "vkmark_runs": [
+    {
+      "repetition": 1,
+      "parsed": {
+        "scenes": {
+          "vertex": {
+            "fps": 420.0,
+            "frametime_ms": 2.381
+          },
+          "texture": {
+            "fps": 763.0,
+            "frametime_ms": 1.311
+          },
+          "shading": {
+            "fps": 653.0,
+            "frametime_ms": 1.531
+          },
+          "desktop": {
+            "fps": 797.0,
+            "frametime_ms": 1.255
+          }
+        },
+        "score": 658
+      },
+      "telemetry": {
+        "duration_s": 69.08,
+        "avg_power_w": 2.032,
+        "max_power_w": 6.023,
+        "energy_joules": 140.35,
+        "start_temp_c": 32.8,
+        "end_temp_c": 32.9,
+        "max_temp_c": 33.0,
+        "temp_delta_c": 0.1,
+        "avg_gpu_freq_mhz": 251.1,
+        "max_gpu_freq_mhz": 800.0,
+        "avg_gpu_busy_pct": 16.6
+      },
+      "raw_output": "=======================================================\n    vkmark 2025.01\n=======================================================\n    Vendor ID:      0x5143\n    Device ID:      0x6010800\n    Device Name:    Turnip Adreno (TM) 618\n    Driver Version: 109064192\n    Device UUID:    53b382ac9427ee64cac3975091869f15\n=======================================================\n[vertex] duration=2.0: FPS: 420 FrameTime: 2.381 ms\n[texture] duration=2.0: FPS: 763 FrameTime: 1.311 ms\n[shading] duration=2.0: FPS: 653 FrameTime: 1.531 ms\n[desktop] duration=2.0: FPS: 797 FrameTime: 1.255 ms\n=======================================================\n                                   vkmark Score: 658\n=======================================================\n"
+    },
+    {
+      "repetition": 2,
+      "parsed": {
+        "scenes": {
+          "vertex": {
+            "fps": 840.0,
+            "frametime_ms": 1.19
+          },
+          "texture": {
+            "fps": 726.0,
+            "frametime_ms": 1.377
+          },
+          "shading": {
+            "fps": 648.0,
+            "frametime_ms": 1.543
+          },
+          "desktop": {
+            "fps": 803.0,
+            "frametime_ms": 1.245
+          }
+        },
+        "score": 754
+      },
+      "telemetry": {
+        "duration_s": 8.37,
+        "avg_power_w": 4.234,
+        "max_power_w": 5.346,
+        "energy_joules": 35.42,
+        "start_temp_c": 32.9,
+        "end_temp_c": 33.1,
+        "max_temp_c": 33.1,
+        "temp_delta_c": 0.2,
+        "avg_gpu_freq_mhz": 769.8,
+        "max_gpu_freq_mhz": 800.0,
+        "avg_gpu_busy_pct": 92.8
+      },
+      "raw_output": "=======================================================\n    vkmark 2025.01\n=======================================================\n    Vendor ID:      0x5143\n    Device ID:      0x6010800\n    Device Name:    Turnip Adreno (TM) 618\n    Driver Version: 109064192\n    Device UUID:    53b382ac9427ee64cac3975091869f15\n=======================================================\n[vertex] duration=2.0: FPS: 840 FrameTime: 1.190 ms\n[texture] duration=2.0: FPS: 726 FrameTime: 1.377 ms\n[shading] duration=2.0: FPS: 648 FrameTime: 1.543 ms\n[desktop] duration=2.0: FPS: 803 FrameTime: 1.245 ms\n=======================================================\n                                   vkmark Score: 754\n=======================================================\n"
+    }
+  ]
+}

@@ -190,17 +190,23 @@ kgsl_bo_from_dmabuf(struct fd_device *dev, int fd)
 }
 
 static int
-dma_heap_alloc(uint64_t size)
+dma_heap_alloc(struct fd_device *dev, uint64_t size)
 {
+   struct kgsl_device *kgsl_dev = to_kgsl_device(dev);
    int ret;
-   int dma_heap = open("/dev/dma_heap/system", O_RDONLY);
 
-   if (dma_heap < 0) {
-      int ion_heap = open("/dev/ion", O_RDONLY);
+   if (kgsl_dev->dma_type == KGSL_DMA_TYPE_DMAHEAP && kgsl_dev->dma_heap_fd >= 0) {
+      struct dma_heap_allocation_data alloc_data = {
+         .len = size,
+         .fd_flags = O_RDWR | O_CLOEXEC,
+      };
 
-      if (ion_heap < 0)
+      ret = kgsl_pipe_safe_ioctl(kgsl_dev->dma_heap_fd, DMA_HEAP_IOCTL_ALLOC, &alloc_data);
+      if (ret)
          return -1;
 
+      return alloc_data.fd;
+   } else if (kgsl_dev->dma_type == KGSL_DMA_TYPE_ION && kgsl_dev->dma_heap_fd >= 0) {
       struct ion_allocation_data {
          __u64 len;
          __u32 heap_id_mask;
@@ -214,30 +220,15 @@ dma_heap_alloc(uint64_t size)
          .flags = 0, /* uncached */
       };
 
-      ret = kgsl_pipe_safe_ioctl(ion_heap, _IOWR('I', 0, struct ion_allocation_data),
+      ret = kgsl_pipe_safe_ioctl(kgsl_dev->dma_heap_fd, _IOWR('I', 0, struct ion_allocation_data),
                       &alloc_data);
-
-      close(ion_heap);
-
-      if (ret)
-         return -1;
-
-      return alloc_data.fd;
-   } else {
-      struct dma_heap_allocation_data alloc_data = {
-         .len = size,
-         .fd_flags = O_RDWR | O_CLOEXEC,
-      };
-
-      ret = kgsl_pipe_safe_ioctl(dma_heap, DMA_HEAP_IOCTL_ALLOC, &alloc_data);
-
-      close(dma_heap);
-
       if (ret)
          return -1;
 
       return alloc_data.fd;
    }
+
+   return -1;
 }
 
 static struct fd_bo *
@@ -246,7 +237,7 @@ kgsl_bo_new_dmabuf(struct fd_device *dev, uint32_t size)
    int fd;
    struct fd_bo *bo;
 
-   fd = dma_heap_alloc(size);
+   fd = dma_heap_alloc(dev, size);
    if (fd < 0) {
       ERROR_MSG("Failed to allocate dma-buf (%s)", strerror(errno));
       return NULL;

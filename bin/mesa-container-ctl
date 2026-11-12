@@ -1,0 +1,172 @@
+#!/bin/sh
+#
+# mesa-container-ctl: Qualcomm Adreno GPU Diagnostic, Tuning & Ecosystem Control
+# Part of mesa-for-android-container for Droidspaces / Arch Linux / Debian / Ubuntu
+#
+
+set -u
+
+KGSL_DEV="/dev/kgsl-3d0"
+KGSL_SYSFS="/sys/class/kgsl/kgsl-3d0"
+ION_DEV="/dev/ion"
+DMA_HEAP_DEV="/dev/dma_heap/system"
+
+# Colors for terminal output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
+print_banner() {
+    printf "${CYAN}=======================================================${NC}\n"
+    printf "${CYAN}  Mesa for Android Container — GPU Ecosystem Controller ${NC}\n"
+    printf "${CYAN}=======================================================${NC}\n"
+}
+
+cmd_check() {
+    print_banner
+    printf "\n${BLUE}[*] Checking Hardware & Kernel Interfaces:${NC}\n"
+
+    # 1. KGSL Node
+    if [[ -c "$KGSL_DEV" ]]; then
+        local perms
+        perms=$(ls -la "$KGSL_DEV")
+        printf "  ${GREEN}✔${NC} KGSL Device Node:        ${KGSL_DEV} (Present)\n"
+        printf "    Permissions:            %s\n" "$perms"
+    else
+        printf "  ${RED}✘${NC} KGSL Device Node:        ${KGSL_DEV} (Missing! Container requires --gpu flag)\n"
+    fi
+
+    # 2. GPU Model & Clock
+    if [[ -d "$KGSL_SYSFS" ]]; then
+        local model cur_freq gov busy
+        model=$(cat "${KGSL_SYSFS}/gpu_model" 2>/dev/null || echo "Unknown Adreno")
+        cur_freq=$(cat "${KGSL_SYSFS}/devfreq/cur_freq" 2>/dev/null || echo "0")
+        gov=$(cat "${KGSL_SYSFS}/devfreq/governor" 2>/dev/null || echo "unknown")
+        busy=$(cat "${KGSL_SYSFS}/gpu_busy_percentage" 2>/dev/null || echo "0 %")
+        local cur_freq_mhz=$((cur_freq / 1000000))
+
+        printf "  ${GREEN}✔${NC} GPU Model:               %s\n" "$model"
+        printf "  ${GREEN}✔${NC} devfreq Governor:        %s\n" "$gov"
+        printf "  ${GREEN}✔${NC} Current Clock:           %s MHz (Busy: %s)\n" "$cur_freq_mhz" "$busy"
+    else
+        printf "  ${YELLOW}⚠${NC} KGSL sysfs interface:   Not visible from inside container\n"
+    fi
+
+    # 3. Allocators (ION / DMA-HEAP)
+    printf "\n${BLUE}[*] Checking Shared Buffer Allocators:${NC}\n"
+    if [[ -c "$DMA_HEAP_DEV" ]]; then
+        printf "  ${GREEN}✔${NC} Linux DMA-BUF Heap:      %s (Modern)\n" "$DMA_HEAP_DEV"
+    else
+        printf "  ${YELLOW}⚠${NC} Linux DMA-BUF Heap:      %s (Not present on 4.14 kernel)\n" "$DMA_HEAP_DEV"
+    fi
+
+    if [[ -c "$ION_DEV" ]]; then
+        printf "  ${GREEN}✔${NC} Qualcomm ION Interface:  %s (Available for fallback)\n" "$ION_DEV"
+    else
+        printf "  ${RED}✘${NC} Qualcomm ION Interface:  %s (Missing)\n" "$ION_DEV"
+    fi
+
+    # 4. Driver capabilities
+    printf "\n${BLUE}[*] Checking Mesa Driver Capabilities:${NC}\n"
+    if command -v vulkaninfo >/dev/null 2>&1; then
+        local vk_device
+        vk_device=$(vulkaninfo --summary 2>/dev/null | awk -F'= ' '/deviceName/ {print $2; exit}')
+        if [[ -n "$vk_device" ]]; then
+            printf "  ${GREEN}✔${NC} Vulkan Driver:           %s\n" "$vk_device"
+        else
+            printf "  ${YELLOW}⚠${NC} Vulkan Driver:           vulkaninfo returned no devices\n"
+        fi
+    else
+        printf "  ${YELLOW}⚠${NC} Vulkan Tools:            vulkaninfo not installed\n"
+    fi
+
+    if command -v eglinfo >/dev/null 2>&1; then
+        local gl_renderer
+        gl_renderer=$(eglinfo 2>/dev/null | awk -F': ' '/OpenGL core profile renderer/ {print $2; exit}')
+        if [[ -n "$gl_renderer" ]]; then
+            printf "  ${GREEN}✔${NC} OpenGL Renderer:         %s (Freedreno KGSL)\n" "$gl_renderer"
+        else
+            printf "  ${YELLOW}⚠${NC} OpenGL Renderer:         eglinfo query inconclusive\n"
+        fi
+    else
+        printf "  ${YELLOW}⚠${NC} OpenGL Tools:            eglinfo not installed\n"
+    fi
+    printf "\n"
+}
+
+cmd_profile() {
+    local profile="${1:-balanced}"
+    print_banner
+    printf "\n${BLUE}[*] Mesa Container Acceleration Profile: ${CYAN}%s${NC}\n\n" "$profile"
+
+    case "$profile" in
+        performance)
+            cat <<'EOF'
+# Profile: PERFORMANCE (Maximum Throughput, Lowest Latency)
+export MESA_LOADER_DRIVER_OVERRIDE=kgsl
+export FD_MESA_DEBUG=gmem
+export MESA_DRI3_DISABLE_PRESENT_WAIT_FENCE=1
+export MESA_SHADER_CACHE_MAX_SIZE=64M
+export MESA_VK_WSI_PRESENT_MODE=immediate
+EOF
+            printf "\n${GREEN}[✔] Apply this profile by sourcing: eval \$(mesa-container-ctl profile performance)${NC}\n"
+            ;;
+        battery-saver)
+            cat <<'EOF'
+# Profile: BATTERY-SAVER (Low Power, Minimal DRAM Bus Churn)
+export MESA_LOADER_DRIVER_OVERRIDE=kgsl
+export FD_MESA_DEBUG=gmem
+export vblank_mode=3
+export MESA_VK_WSI_PRESENT_MODE=mailbox
+export MESA_SHADER_CACHE_MAX_SIZE=16M
+EOF
+            printf "\n${GREEN}[✔] Apply this profile by sourcing: eval \$(mesa-container-ctl profile battery-saver)${NC}\n"
+            ;;
+        balanced|default|*)
+            cat <<'EOF'
+# Profile: BALANCED (Recommended Default for Android Containers)
+export MESA_LOADER_DRIVER_OVERRIDE=kgsl
+export FD_MESA_DEBUG=gmem
+export MESA_SHADER_CACHE_MAX_SIZE=32M
+EOF
+            printf "\n${GREEN}[✔] Apply this profile by sourcing: eval \$(mesa-container-ctl profile balanced)${NC}\n"
+            ;;
+    esac
+    printf "\n"
+}
+
+cmd_help() {
+    print_banner
+    cat <<'EOF'
+Usage: mesa-container-ctl <command> [options]
+
+Commands:
+  check                     Probe hardware nodes, KGSL interface, allocators, and driver status
+  profile [mode]            Generate environment presets (balanced, performance, battery-saver)
+  help                      Display this help screen
+
+Examples:
+  mesa-container-ctl check
+  eval "$(mesa-container-ctl profile balanced)"
+  mesa-container-ctl profile performance >> /etc/environment
+EOF
+}
+
+case "${1:-check}" in
+    check|status)
+        cmd_check
+        ;;
+    profile|env)
+        cmd_profile "${2:-balanced}"
+        ;;
+    help|--help|-h)
+        cmd_help
+        ;;
+    *)
+        cmd_help
+        exit 1
+        ;;
+esac

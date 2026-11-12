@@ -15,6 +15,12 @@ int kgsl_get_prop(int fd, unsigned int type, void *value, size_t size);
 
 struct kgsl_device {
     struct fd_device base;
+    int dma_heap_fd;
+    enum {
+        KGSL_DMA_TYPE_NONE = 0,
+        KGSL_DMA_TYPE_DMAHEAP,
+        KGSL_DMA_TYPE_ION,
+    } dma_type;
 };
 FD_DEFINE_CAST(fd_device, kgsl_device);
 

@@ -35,10 +35,35 @@ kgsl_device_new(int fd)
 
     dev->bo_size = sizeof(struct kgsl_bo);
 
+    /* Probe and cache DMA-BUF allocation source (dma_heap or ion) once */
+    int dma_fd = open("/dev/dma_heap/system", O_RDONLY | O_CLOEXEC);
+    if (dma_fd >= 0) {
+        kgsl_dev->dma_type = KGSL_DMA_TYPE_DMAHEAP;
+        kgsl_dev->dma_heap_fd = dma_fd;
+    } else {
+        dma_fd = open("/dev/ion", O_RDONLY | O_CLOEXEC);
+        if (dma_fd >= 0) {
+            kgsl_dev->dma_type = KGSL_DMA_TYPE_ION;
+            kgsl_dev->dma_heap_fd = dma_fd;
+        } else {
+            kgsl_dev->dma_type = KGSL_DMA_TYPE_NONE;
+            kgsl_dev->dma_heap_fd = -1;
+        }
+    }
+
     return dev;
 }
 
 static void
 kgsl_device_destroy(struct fd_device *dev)
 {
+    struct kgsl_device *kgsl_dev = to_kgsl_device(dev);
+
+    if (kgsl_dev->dma_heap_fd >= 0) {
+        close(kgsl_dev->dma_heap_fd);
+        kgsl_dev->dma_heap_fd = -1;
+    }
+
+    util_queue_destroy(&dev->submit_queue);
+    free(kgsl_dev);
 }

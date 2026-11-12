@@ -37,7 +37,16 @@ flush_submit_list(struct list_head *submit_list)
         nr_cmds += to_fd_ringbuffer_sp(submit->primary)->u.nr_cmds;
     }
 
-    struct kgsl_command_object cmds[nr_cmds];
+    struct kgsl_command_object stack_cmds[32];
+    struct kgsl_command_object *cmds = stack_cmds;
+    if (nr_cmds > ARRAY_SIZE(stack_cmds)) {
+        cmds = malloc(nr_cmds * sizeof(struct kgsl_command_object));
+        if (!cmds) {
+            ERROR_MSG("failed to allocate command list for %u commands", nr_cmds);
+            return -ENOMEM;
+        }
+    }
+
     unsigned cmd_idx = 0;
     foreach_submit_safe (submit, submit_list) {
         struct fd_ringbuffer_sp *deferred_primary =
@@ -109,6 +118,8 @@ flush_submit_list(struct list_head *submit_list)
         close(fd_submit->in_fence_fd);
 
 fail:
+    if (cmds != stack_cmds)
+        free(cmds);
     return ret;
 }
 

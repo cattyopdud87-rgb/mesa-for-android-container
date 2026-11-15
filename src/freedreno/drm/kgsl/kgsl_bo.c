@@ -122,11 +122,32 @@ static const struct fd_bo_funcs bo_funcs = {
     .dmabuf = kgsl_bo_dmabuf,
 };
 
+static struct fd_bo *
+kgsl_bo_create_from_info(struct fd_device *dev, uint32_t handle, uint32_t size,
+                         uint64_t gpuaddr, int bo_type)
+{
+    struct kgsl_bo *kgsl_bo = calloc(1, sizeof(*kgsl_bo));
+    if (!kgsl_bo)
+        return NULL;
+
+    struct fd_bo *bo = &kgsl_bo->base;
+    bo->dev = dev;
+    bo->size = size;
+    bo->handle = handle;
+    bo->funcs = &bo_funcs;
+
+    kgsl_bo->iova = gpuaddr;
+    kgsl_bo->bo_type = bo_type;
+
+    fd_bo_init_common(bo, dev);
+
+    return bo;
+}
+
 /* Size is not used by KGSL */
 struct fd_bo *
 kgsl_bo_from_handle(struct fd_device *dev, uint32_t size, uint32_t handle)
 {
-    struct fd_bo *bo;
     int ret;
     struct kgsl_gpuobj_info req = {
         .id = handle,
@@ -140,21 +161,7 @@ kgsl_bo_from_handle(struct fd_device *dev, uint32_t size, uint32_t handle)
         return NULL;
     }
 
-    struct kgsl_bo *kgsl_bo = calloc(1, sizeof(*kgsl_bo));
-    if (!kgsl_bo)
-        return NULL;
-
-    bo = &kgsl_bo->base;
-    bo->dev = dev;
-    bo->size = req.size;
-    bo->handle = req.id;
-    bo->funcs = &bo_funcs;
-
-    kgsl_bo->iova = req.gpuaddr;
-
-    fd_bo_init_common(bo, dev);
-
-    return bo;
+    return kgsl_bo_create_from_info(dev, req.id, req.size, req.gpuaddr, KGSL_BO_NATIVE);
 }
 
 struct fd_bo *
@@ -272,10 +279,7 @@ kgsl_bo_new(struct fd_device *dev, uint32_t size, uint32_t flags)
         return NULL;
     }
 
-    bo = kgsl_bo_from_handle(dev, size, req.id);
-
-    struct kgsl_bo *kgsl_bo = to_kgsl_bo(bo);
-    kgsl_bo->bo_type = KGSL_BO_NATIVE;
+    bo = kgsl_bo_create_from_info(dev, req.id, req.size, req.gpuaddr, KGSL_BO_NATIVE);
 
     if (!bo) {
         ERROR_MSG("Failed to allocate buffer object");

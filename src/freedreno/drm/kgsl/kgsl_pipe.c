@@ -206,7 +206,9 @@ struct fd_pipe *kgsl_pipe_new(struct fd_device *dev, enum fd_pipe_id id,
     struct kgsl_drawctxt_create req = {
         .flags = KGSL_CONTEXT_SAVE_GMEM |
                  KGSL_CONTEXT_NO_GMEM_ALLOC |
-                 KGSL_CONTEXT_PREAMBLE,
+                 KGSL_CONTEXT_PREAMBLE |
+                 ((prio & 0x3) << KGSL_CONTEXT_PRIORITY_SHIFT) |
+                 (KGSL_CONTEXT_TYPE_GL << KGSL_CONTEXT_TYPE_SHIFT),
     };
 
     int ret = kgsl_pipe_safe_ioctl(dev->fd, IOCTL_KGSL_DRAWCTXT_CREATE, &req);

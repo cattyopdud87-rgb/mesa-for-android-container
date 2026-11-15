@@ -55,7 +55,9 @@ kgsl_submitqueue_new(struct tu_device *dev, struct tu_queue *queue)
    struct kgsl_drawctxt_create req = {
       .flags = KGSL_CONTEXT_SAVE_GMEM |
               KGSL_CONTEXT_NO_GMEM_ALLOC |
-              KGSL_CONTEXT_PREAMBLE,
+              KGSL_CONTEXT_PREAMBLE |
+              (((uint32_t)queue->priority & 0x3) << KGSL_CONTEXT_PRIORITY_SHIFT) |
+              (KGSL_CONTEXT_TYPE_VK << KGSL_CONTEXT_TYPE_SHIFT),
    };
 
    int ret = safe_ioctl(dev->physical_device->local_fd, IOCTL_KGSL_DRAWCTXT_CREATE, &req);
@@ -1795,7 +1797,7 @@ tu_knl_kgsl_load(struct tu_instance *instance, int fd)
 
    device->has_raytracing = tu_kgsl_get_raytracing(fd);
 
-   device->submitqueue_priority_count = 1;
+   device->submitqueue_priority_count = 4;
    
    device->timeline_type = vk_sync_timeline_get_type(&vk_kgsl_sync_type);
 

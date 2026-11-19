@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 #
 # Copyright 2025 Advanced Micro Devices, Inc.
 # SPDX-License-Identifier: MIT

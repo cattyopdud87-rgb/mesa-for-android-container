@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/data/data/com.termux/files/usr/bin/env python3
 # encoding=utf-8
 # Copyright 2017-2018 Intel Corporation
 

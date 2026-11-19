@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 
 arch=$1
 cross_file="/cross_file-$arch.txt"

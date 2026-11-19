@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/data/data/com.termux/files/usr/bin/env bash
 # shellcheck disable=SC1091  # the path is created in build-kdl and
 # here is check if exist
 # shellcheck disable=SC2086 # we want the arguments to be expanded

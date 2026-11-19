@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 
 # When changing this file, you need to bump the following
 # .gitlab-ci/image-tags.yml tags:

@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#!/data/data/com.termux/files/usr/bin/env python3
 #
 # Copyright © 2024 Collabora Ltd. and Red Hat Inc.
 # SPDX-License-Identifier: MIT

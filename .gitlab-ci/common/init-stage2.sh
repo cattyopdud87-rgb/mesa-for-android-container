@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 # shellcheck disable=SC1090
 # shellcheck disable=SC1091
 # shellcheck disable=SC2086 # we want word splitting

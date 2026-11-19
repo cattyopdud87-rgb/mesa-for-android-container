@@ -1,4 +1,4 @@
-#!/usr/bin/python3 -i
+#!/data/data/com.termux/files/usr/bin/python3 -i
 #
 # Copyright 2013-2023 The Khronos Group Inc.
 # Copyright 2023-2024 Google Inc.

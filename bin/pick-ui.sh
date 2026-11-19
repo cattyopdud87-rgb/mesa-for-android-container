@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/data/data/com.termux/files/usr/bin/env bash
 set -eu
 
 this_dir=$(dirname -- "$(readlink -f -- "${BASH_SOURCE[0]}")")

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/data/data/com.termux/files/usr/bin/env bash
 # shellcheck disable=SC1091 # The relative paths in this file only become valid at runtime.
 # When changing this file, you need to bump the following
 # .gitlab-ci/image-tags.yml tags:

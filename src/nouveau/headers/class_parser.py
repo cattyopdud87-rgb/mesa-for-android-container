@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#!/data/data/com.termux/files/usr/bin/env python3
 
 # script to parse nvidia CL headers and generate inlines to be used in pushbuffer encoding.
 # probably needs python3.9

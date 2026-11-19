@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/data/data/com.termux/files/usr/bin/env bash
 
 DEBIAN_ARCH="amd64" \
 . .gitlab-ci/container/debian/test-vk.sh

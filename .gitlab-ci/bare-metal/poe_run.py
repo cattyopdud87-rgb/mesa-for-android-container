@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/data/data/com.termux/files/usr/bin/env python3
 #
 # Copyright © 2020 Igalia, S.L.
 #

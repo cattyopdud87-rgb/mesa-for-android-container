@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/data/data/com.termux/files/usr/bin/python3
 
 # Copyright (c) 2019 Collabora Ltd
 # Copyright (c) 2020 Valve Corporation

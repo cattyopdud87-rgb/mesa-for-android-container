@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/data/data/com.termux/files/usr/bin/env bash
 
 # When changing this file, all the linux tags in
 # .gitlab-ci/image-tags.yml need updating.

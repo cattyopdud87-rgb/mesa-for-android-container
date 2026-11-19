@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/data/data/com.termux/files/usr/bin/env bash
 # This script processes symbols output by Gallium using glibc to human-readable function names
 
 lastbin=

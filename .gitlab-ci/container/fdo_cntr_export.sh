@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/data/data/com.termux/files/usr/bin/env bash
 
 # This script exports the container image to a rootfs tarball and uploads it to
 # S3.

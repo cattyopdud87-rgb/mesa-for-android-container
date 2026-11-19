@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 
 # Note that this script is not actually "building" rust, but build- is the
 # convention for the shared helpers for putting stuff in our containers.

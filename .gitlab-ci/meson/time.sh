@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/data/data/com.termux/files/usr/bin/sh
 
 # If the test times out, meson sends SIGTERM to this process.
 # Simply exec'ing "time" would result in no output from that in this case.

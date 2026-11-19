@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/data/data/com.termux/files/usr/bin/env python3
 """
 Comprehensive Mesa GPU Benchmark & Telemetry Harness
 Measures: OpenGL (Freedreno) & Vulkan (Turnip) on Snapdragon 732G (Adreno 618)

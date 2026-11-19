@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/data/data/com.termux/files/usr/bin/python3
 #
 # Copyright © 2024 Igalia S.L.
 # SPDX-License-Identifier: MIT

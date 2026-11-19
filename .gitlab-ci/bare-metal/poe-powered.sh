@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 # shellcheck disable=SC1091
 # shellcheck disable=SC2034
 # shellcheck disable=SC2059

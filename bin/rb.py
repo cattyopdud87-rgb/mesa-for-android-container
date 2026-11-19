@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/data/data/com.termux/files/usr/bin/python3
 #
 # Copyright 2025 Valve Corporation
 # SPDX-License-Identifier: MIT

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 
 # This tests for the size of the register file. We do this by launching a
 # lot of workgroups with only one invocation, which causes the GPU to be

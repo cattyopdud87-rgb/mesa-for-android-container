@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 #
 # Test various instructions to check whether half<->full widening/narrowing
 # works.  The basic premise is to perform the same instruction with and

@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/data/data/com.termux/files/usr/bin/python3
 #
 # Copyright © 2019-2024 Google, Inc.
 # Copyright © 2024-2025 Tomeu Vizoso

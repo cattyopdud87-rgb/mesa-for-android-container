@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/data/data/com.termux/files/usr/bin/env bash
 # Strip the image to a small minimal system.
 # When changing this file, you need to bump the following
 # .gitlab-ci/image-tags.yml tags:

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/data/data/com.termux/files/usr/bin/sh
 
 # Init entrypoint for bare-metal devices; calls common init code.
 

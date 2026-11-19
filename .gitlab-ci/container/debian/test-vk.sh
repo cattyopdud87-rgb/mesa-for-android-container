@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/data/data/com.termux/files/usr/bin/env bash
 # The relative paths in this file only become valid at runtime.
 # shellcheck disable=SC1091
 # shellcheck disable=SC2086 # we want word splitting

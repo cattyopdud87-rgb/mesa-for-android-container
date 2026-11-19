@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/data/data/com.termux/files/usr/bin/sh
 
 # Very early init, used to make sure devices and network are set up and
 # reachable.

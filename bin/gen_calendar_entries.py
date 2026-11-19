@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/data/data/com.termux/files/usr/bin/env python3
 # SPDX-License-Identifier: MIT
 
 # Copyright © 2021 Intel Corporation

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/data/data/com.termux/files/usr/bin/env bash
 # Script used for Android and Fedora builds (Debian builds get their libdrm version
 # from https://gitlab.freedesktop.org/gfx-ci/ci-deb-repo - see PKG_REPO_REV)
 # shellcheck disable=SC2086 # we want word splitting

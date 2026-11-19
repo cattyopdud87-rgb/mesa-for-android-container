@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/data/data/com.termux/files/usr/bin/env bash
 
 if test -f /etc/debian_version; then
     apt-get autoremove -y --purge

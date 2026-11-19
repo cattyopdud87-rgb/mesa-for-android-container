@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/data/data/com.termux/files/usr/bin/sh
 
 # Helper script to download the schema GraphQL from Gitlab to enable IDEs to
 # assist the developer to edit gql files

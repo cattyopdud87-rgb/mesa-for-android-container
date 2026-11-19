@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 # Copyright 2022 Android Open Source Project
 # SPDX-License-Identifier: MIT
 

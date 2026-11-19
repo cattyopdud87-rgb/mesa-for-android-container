@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/data/data/com.termux/files/usr/bin/env python3
 # Copyright © 2020 - 2023 Collabora Ltd.
 # Authors:
 #   David Heidelberg <david.heidelberg@collabora.com>

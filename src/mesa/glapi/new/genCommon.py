@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/data/data/com.termux/files/usr/bin/env python3
 
 # (C) Copyright 2015, NVIDIA CORPORATION.
 # All Rights Reserved.

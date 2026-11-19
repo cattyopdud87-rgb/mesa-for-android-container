@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/data/data/com.termux/files/usr/bin/env bash
 # SPDX-License-Identifier: MIT
 #
 # Copyright © 2022 Collabora Limited

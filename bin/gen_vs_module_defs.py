@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/data/data/com.termux/files/usr/bin/env python3
 # Copyright © 2021-2021 Yonggang Luo
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy

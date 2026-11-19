@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/data/data/com.termux/files/usr/bin/env python3
 #
 # Copyright 2012 VMware Inc
 # Copyright 2008-2009 Jose Fonseca
